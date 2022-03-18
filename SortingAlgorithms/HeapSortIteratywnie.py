@@ -1,3 +1,7 @@
+with open('input.txt', 'r') as file:
+    tablica = [int(line) for line in file]
+
+
 def heapify_iterative(arr, n):
 
     for i in range(n):
@@ -16,7 +20,11 @@ def heapsort_iterative(arr, n):
         heapify_iterative(arr, i)
         arr[0], arr[i-1] = arr[i-1], arr[0]
 
+    with open('output.txt', 'w') as file:
+        for line in arr:
+            file.write(str(line))
+            file.write('\n')
+
     print(arr)
 
-arr = [21, 12, 11, 13, 5, 20, 6, 7, 20]
-heapsort_iterative(arr, len(arr))
+heapsort_iterative(tablica, len(tablica))
