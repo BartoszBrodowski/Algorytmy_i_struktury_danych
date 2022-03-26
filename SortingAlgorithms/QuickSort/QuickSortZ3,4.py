@@ -48,12 +48,11 @@ def sortowanie_szybkie(arr, lowest, highest):
         # Na podstawie zmiennej c instrukcja warunkowa wybiera insertion/quick sort
         if len(arr) > c:
             partition_index = partition(arr, lowest, highest)
+            sortowanie_szybkie(arr, lowest, partition_index - 1)
+            sortowanie_szybkie(arr, partition_index + 1, highest)
         else:
             insertionSort(arr)
             # insertion_sort
-
-        sortowanie_szybkie(arr, lowest, partition_index - 1)
-        sortowanie_szybkie(arr, partition_index + 1, highest)
 
     return arr
 
@@ -63,11 +62,11 @@ def sortowanie_szybkie(arr, lowest, highest):
 tablica_losowa = []
 for i in range(1000):
     tablica_losowa.append(random.randint(0, 100))
-print(tablica_losowa)
+# print(tablica_losowa)
 
 # print(sortowanie_szybkie(tablica, 0, len(tablica) - 1))
 
 c = 0 # Stała do wprowadzenia
-
-sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa) - 1))
-sortowanie.start()
+print(sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa) - 1))
+# sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa) - 1))
+# sortowanie.start()
