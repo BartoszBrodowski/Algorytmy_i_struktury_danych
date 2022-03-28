@@ -1,9 +1,20 @@
 import sys
 import threading
 import random
+import time
 
-sys.setrecursionlimit(100000)
-threading.stack_size(100000)
+tablica_losowa = []
+for i in range(20000):
+    tablica_losowa.append(random.randint(0, 100))
+
+c = 30000
+
+# 20.000 elementów = 33.07 sekund dla c = 30.000
+
+
+
+# sys.setrecursionlimit(100000)
+# threading.stack_size(100000)
 
 def insertionSort(arr):
     for i in range(1, len(arr)):
@@ -18,7 +29,7 @@ def insertionSort(arr):
 def partition(arr, lowest, highest):
     # Zaczynamy od elementu najbardziej na lewo, ale quicksort może
     # zaczynać od dowolnego elementu
-    pivot = arr[highest]
+    pivot = arr[highest - 1]
 
     # Indeks mniejszego elementu po całej iteracji
     # wyznacza miejsce, w które wstawia się pivot
@@ -31,7 +42,7 @@ def partition(arr, lowest, highest):
 
     # Zamiana miejsc pivota z ostatnim mniejszym od pivota elementem,
     # czyli wstawienie go w odpowiednie miejsce w liście
-    arr[highest], arr[small_el_index + 1] = arr[small_el_index + 1], arr[highest]
+    arr[highest - 1], arr[small_el_index + 1] = arr[small_el_index + 1], arr[highest - 1]
 
     # return potrzebny, do partition_index w quicksort
     # (pozwala iterować od lewej i prawej strony pivota)
@@ -56,17 +67,12 @@ def sortowanie_szybkie(arr, lowest, highest):
 
     return arr
 
-
-# tablica = [10, 80, 30, 90, 40, 50, 70]
-
-tablica_losowa = []
-for i in range(1000):
-    tablica_losowa.append(random.randint(0, 100))
-# print(tablica_losowa)
-
-# print(sortowanie_szybkie(tablica, 0, len(tablica) - 1))
-
-c = 0 # Stała do wprowadzenia
-print(sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa) - 1))
 # sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa) - 1))
 # sortowanie.start()
+
+start_time = time.process_time()
+
+sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa))
+
+
+print(" --- %s seconds --- " % (time.process_time()))
