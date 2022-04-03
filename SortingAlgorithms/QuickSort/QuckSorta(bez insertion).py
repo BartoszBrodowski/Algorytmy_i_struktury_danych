@@ -7,28 +7,13 @@ from timeit import default_timer as timer
 sys.setrecursionlimit(100000)
 threading.stack_size(100000)
 
-tablica_losowa = []
-for i in range(100000):
-    tablica_losowa.append(random.randint(0, 1000))
+# tablica_losowa = []
+# for i in range(1000):
+#     tablica_losowa.append(random.randint(0, 1000))
 
-wartości_c = [0, 5, 10, 25, 50, 100, 1000]
+tablica_losowa = [random.randrange(0, 100) for i in range(100000)]
 
-# 20.000 elementów = 33.07 sekund dla c = 30.000
-
-
-
-# sys.setrecursionlimit(100000)
-# threading.stack_size(100000)
-
-def insertionSort(arr):
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        while j >= 0 and key < arr[j]:
-            arr[j + 1] = arr[j]
-            j -= 1
-        arr[j + 1] = key
-    return arr
+# tablica_losowa.sort()
 
 def partition(arr, lowest, highest):
     # Zaczynamy od elementu najbardziej na lewo, ale quicksort może
@@ -61,23 +46,20 @@ def sortowanie_szybkie(arr, lowest, highest):
         # jest on już ustawiony na odpowiednim miejscu w liście
 
         # Na podstawie zmiennej c instrukcja warunkowa wybiera insertion/quick sort
-        if highest - lowest < c:
-            insertionSort(arr)
-        else:
-            partition_index = partition(arr, lowest, highest)
-            sortowanie_szybkie(arr, lowest, partition_index - 1)
-            sortowanie_szybkie(arr, partition_index + 1, highest)
+
+        partition_index = partition(arr, lowest, highest)
+        sortowanie_szybkie(arr, lowest, partition_index - 1)
+        sortowanie_szybkie(arr, partition_index + 1, highest)
 
     return arr
 
-# sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa)))
 
-for i in wartości_c:
-    c = i
-    start = timer()
-    sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa))
-    stop = timer()
-    Tn = stop - start
-    Fn = len(tablica_losowa) * math.log(len(tablica_losowa))
-    print(Tn)
+start = timer()
+sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa))
+stop = timer()
+Tn = stop - start
+Fn = len(tablica_losowa) * math.log(len(tablica_losowa))
+print(Tn)
 
+# sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa) - 1))
+# sortowanie.start()

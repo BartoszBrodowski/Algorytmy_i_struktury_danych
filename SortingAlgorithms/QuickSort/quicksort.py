@@ -15,9 +15,9 @@ def partition(arr, lowest, highest):
     # Zamiana miejsc pivota z ostatnim mniejszym od pivota elementem,
     # czyli wstawienie go w odpowiednie miejsce w liście
     arr[highest], arr[small_el_index + 1] = arr[small_el_index + 1], arr[highest]
-
     # return potrzebny, do partition_index w quicksort
     # (pozwala iterować od lewej i prawej strony pivota)
+    print(arr)
     return small_el_index + 1
 
 def quick_sort(arr, lowest, highest):
@@ -34,6 +34,6 @@ def quick_sort(arr, lowest, highest):
 
     return arr
 
-tablica = [10, 80, 30, 90, 40, 50, 70]
+tablica = [6,5,1,15,12,4]
 
 print(quick_sort(tablica, 0, len(tablica) - 1))
