@@ -1,4 +1,5 @@
 import random
+import copy
 
 
 class Node:
@@ -89,17 +90,29 @@ class LinkedList:
         return nowa_lista
 
     def scal(self, l2):
-        temp = self.sentinel.prev.next
-        temp2 = self.sentinel.prev
-        self.sentinel.prev.next = l2.sentinel.next
-        self.sentinel.prev = l2.sentinel.prev
-        l2.sentinel.prev.next = self.sentinel
-        l2.sentinel.prev = temp2
+        # temp = self.sentinel.prev.next
+        # temp2 = self.sentinel.prev
+        # self.sentinel.prev.next = l2.sentinel.next
+        # self.sentinel.prev = l2.sentinel.prev
+        # l2.sentinel.prev.next = self.sentinel
+        # l2.sentinel.prev = temp2
 
-        x = self.sentinel.next
-        while x != self.sentinel:
+        # Potrzeba głębokiej kopii aby nie zmieniać pierwotnych list na której wywołujemy funkcje
+        L3 = copy.deepcopy(self)
+        L2_copy = copy.deepcopy(l2)
+
+        temp = L3.sentinel.prev
+        L3.sentinel.prev.next = L2_copy.sentinel.next
+        L3.sentinel.prev = L2_copy.sentinel.prev
+        L2_copy.sentinel.prev.next = L3.sentinel
+        L2_copy.sentinel.prev = temp
+
+        x = L3.sentinel.next
+        while x != L3.sentinel:
             print(x.value, end=" ")
             x = x.next
+
+        return L3
 
 
 print("---ZADANIE 1. a) Wstaw---")
@@ -142,8 +155,15 @@ print("---ZADANIE 3. Scal---")
 print("\n")
 
 lista_slow = ["drzewo", "jablko", "gruszka", "orzech"]
-l2 = LinkedList()
-for i in range(4):
-    l2.wstaw(lista_slow[i])
 
-l.scal(l2)
+L2 = LinkedList()
+for i in range(4):
+    L2.wstaw(lista_slow[i])
+
+l.scal(L2)
+print("\n")
+
+l.drukuj()
+print("\n")
+
+L2.drukuj()
