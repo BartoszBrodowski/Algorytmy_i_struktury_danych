@@ -5,14 +5,14 @@ import math
 from timeit import default_timer as timer
 
 sys.setrecursionlimit(100000)
-threading.stack_size(100000)
+threading.stack_size(0x100000)
 
 tablica_losowa = []
-for i in range(100000):
+for i in range(2**10):
     tablica_losowa.append(random.randint(0, 1000))
 
 wartości_c = [0, 5, 10, 25, 50, 100, 1000]
-
+c = 100
 # 20.000 elementów = 33.07 sekund dla c = 30.000
 
 
@@ -67,17 +67,26 @@ def sortowanie_szybkie(arr, lowest, highest):
             partition_index = partition(arr, lowest, highest)
             sortowanie_szybkie(arr, lowest, partition_index - 1)
             sortowanie_szybkie(arr, partition_index + 1, highest)
-
+        
     return arr
 
-# sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa)))
+def is_sorted(lista):
+    for i in range(1, len(lista)):
+        if lista[i] < lista[i - 1]:
+            return False
+    return True
+    # print('True')
+
+sortowanie = threading.Thread(target=sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa)))
 
 for i in wartości_c:
     c = i
     start = timer()
-    sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa))
+    # sortowanie_szybkie(tablica_losowa, 0, len(tablica_losowa))
+    sortowanie.start()
     stop = timer()
     Tn = stop - start
     Fn = len(tablica_losowa) * math.log(len(tablica_losowa))
     print(Tn)
+    print(is_sorted(tablica_losowa))
 
