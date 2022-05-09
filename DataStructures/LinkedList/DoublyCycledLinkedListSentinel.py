@@ -80,7 +80,7 @@ class LinkedList:
         nowa_lista.drukuj()
         return nowa_lista
 
-    def scal(self, l2):
+    def scal(self, l2): 
         temp = self.sentinel.prev
         self.sentinel.prev.next = l2.sentinel.next
         l2.sentinel.prev.next = temp
