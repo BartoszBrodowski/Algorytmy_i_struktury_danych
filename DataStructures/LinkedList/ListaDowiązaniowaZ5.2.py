@@ -1,4 +1,3 @@
-import random
 import copy
 
 
@@ -90,12 +89,6 @@ class LinkedList:
         return nowa_lista
 
     def scal(self, l2):
-        # temp = self.sentinel.prev.next
-        # temp2 = self.sentinel.prev
-        # self.sentinel.prev.next = l2.sentinel.next
-        # self.sentinel.prev = l2.sentinel.prev
-        # l2.sentinel.prev.next = self.sentinel
-        # l2.sentinel.prev = temp2
 
         # Potrzeba głębokiej kopii aby nie zmieniać pierwotnych list na której wywołujemy funkcje
         L3 = copy.deepcopy(self)
@@ -139,11 +132,11 @@ l.szukaj('WARCABY')
 # Wykomentowane, ponieważ zadanie 2 pokazuje wtedy wynik na wybrakowanej liście,
 # bo tworzy kopię listy dowiązaniowej l
 
-print("\n")
-print("---ZADANIE 1. d) Usun---")
-l.usuń('KORONA')
-l.drukuj()
-print("\n")
+# print("\n")
+# print("---ZADANIE 1. d) Usun---")
+# l.usuń('KORONA')
+# l.drukuj()
+# print("\n")
 
 print("\n")
 print("---ZADANIE 2. Bezpowtorzen---")
